@@ -46,6 +46,9 @@ public class Car {
     }
 
     public void setGasTankLevel(double gasTankLevel) {
+        if (gasTankLevel > this.gasTankSize) {
+            throw new IllegalArgumentException("Can't exceed tank size");
+        }
         this.gasTankLevel = gasTankLevel;
     }
 
@@ -68,20 +71,21 @@ public class Car {
      *
      * @param miles - the miles to drive
      */
-    public void drive(double miles)
-    {
-        //adjust fuel based on mpg and miles requested to drive
+    public void drive(double miles) {
+        // Adjust fuel based on mpg and miles requested to drive
         double maxDistance = this.milesPerGallon * this.gasTankLevel;
-        /**the double below uses some syntax called the ternary operator.
-         * if the value of miles is greater than the value of maxDistance,
-         * then milesAbleToTravel = maxDistance.
-         * otherwise, if miles is not greater than maxDistance,
-         * then milesAbleToTravel = miles
-         */
         double milesAbleToTravel = miles > maxDistance ? maxDistance : miles;
         double gallonsUsed = milesAbleToTravel / this.milesPerGallon;
         this.gasTankLevel = this.gasTankLevel - gallonsUsed;
         this.odometer += milesAbleToTravel;
     }
 
+    /**
+     * Add gas to the car. Ensure that gasTankLevel does not exceed gasTankSize.
+     *
+     * @param gas - the amount of gas to add
+     */
+    public void addGas(double gas) {
+        this.setGasTankLevel(gas + this.gasTankLevel);
+    }
 }
