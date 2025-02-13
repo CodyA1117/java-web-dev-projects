@@ -15,8 +15,8 @@ public class TrueFalse extends Question {
 
     @Override
     public boolean checkAnswer(String answer) {
-        return (answer.equalsIgnoreCase("true") && correctAnswer) ||
-                (answer.equalsIgnoreCase("false") && !correctAnswer);
+        String normalized = normalizeInput(answer);
+        return (normalized.equals("1") && correctAnswer) ||
+                (normalized.equals("2") && !correctAnswer);
     }
 }
-

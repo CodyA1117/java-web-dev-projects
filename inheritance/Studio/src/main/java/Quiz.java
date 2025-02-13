@@ -16,11 +16,12 @@ public class Quiz {
 
     public void runQuiz() {
         Scanner scanner = new Scanner(System.in);
+
         for (Question question : questions) {
             question.displayQuestion();
             System.out.print("Your answer: ");
             String userAnswer = scanner.nextLine();
-            question.setUserAnswer(userAnswer);
+
             if (question.checkAnswer(userAnswer)) {
                 System.out.println("Correct!");
                 totalScore += question.getPoints();

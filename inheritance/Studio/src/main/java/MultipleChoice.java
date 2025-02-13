@@ -2,12 +2,12 @@ import java.util.ArrayList;
 
 public class MultipleChoice extends Question {
     private ArrayList<String> options;
-    private String correctAnswer;
+    private int correctAnswerIndex; // Use an integer for simplicity
 
-    public MultipleChoice(String questionText, int points, ArrayList<String> options, String correctAnswer) {
+    public MultipleChoice(String questionText, int points, ArrayList<String> options, int correctAnswerIndex) {
         super(questionText, points);
         this.options = options;
-        this.correctAnswer = correctAnswer;
+        this.correctAnswerIndex = correctAnswerIndex;
     }
 
     @Override
@@ -20,6 +20,12 @@ public class MultipleChoice extends Question {
 
     @Override
     public boolean checkAnswer(String answer) {
-        return answer.equalsIgnoreCase(correctAnswer);
+        String normalized = normalizeInput(answer);
+        try {
+            int userIndex = Integer.parseInt(normalized) - 1;
+            return userIndex == correctAnswerIndex;
+        } catch (NumberFormatException e) {
+            return false; // Invalid input
+        }
     }
 }
